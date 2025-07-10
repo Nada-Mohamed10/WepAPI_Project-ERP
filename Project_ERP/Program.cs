@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Project_ERP.Filters;
 using Project_ERP.Mapper;
 using Project_ERP.Models;
 using Project_ERP.Repostiry;
@@ -20,7 +21,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ApiResponseWrapperFilter>(); 
+});
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<TaskContext>(options =>

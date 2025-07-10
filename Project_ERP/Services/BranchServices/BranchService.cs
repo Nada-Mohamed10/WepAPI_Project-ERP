@@ -47,6 +47,12 @@ namespace Project_ERP.Services.BranchServices
             return map.Map<ReadBranchDto>(branch);
         }
 
+        public async Task<ReadBranchDto> GetByNameAsync(string name)
+        {
+            var branch = await unit.BranchRepositry.GetByNameAsync(name);
+            if (branch == null) return null;
+            return map.Map<ReadBranchDto>(branch);
+        }
         public async Task<ReadBranchDto> UpdateAsync(int id, UpdateBranchDto branchDto)
         {
             var branch = await unit.BranchRepositry.GetByIdAsync(id);

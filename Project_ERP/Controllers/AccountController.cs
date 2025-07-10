@@ -26,13 +26,24 @@ namespace Project_ERP.Controllers
           
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("ByID")]
         public  async Task<IActionResult> Get(int id)
         {
            var account= await accountService.GetByIdAsync(id);
             if (account == null)
             {
                 return NotFound();
+            }
+            return Ok(account);
+        }
+
+        [HttpGet("ByName")]
+        public async Task<IActionResult> GetByName(string name)
+        {
+            var account = await accountService.GetByNameAsync(name);
+            if (account == null)
+            {
+                return NotFound($"Account with name {name} not found.");
             }
             return Ok(account);
         }

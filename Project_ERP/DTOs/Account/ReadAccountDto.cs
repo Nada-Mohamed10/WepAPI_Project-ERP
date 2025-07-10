@@ -8,8 +8,9 @@ namespace Project_ERP.DTOs.Account
         public string AccountNumber { get; set; }
         public string AccountNameAr { get; set; }
         public string AccountNameEn { get; set; }
-        public int? BranchID { get; set; }
-        
+        public string? BranchNameAr { get; set; }
+        public string? BranchNameEn { get; set; }
+
 
     }
 }

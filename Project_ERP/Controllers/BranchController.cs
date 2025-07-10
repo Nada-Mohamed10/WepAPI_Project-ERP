@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Project_ERP.DTOs.Branch;
+using Project_ERP.Models;
+using Project_ERP.Responses;
 using Project_ERP.Services.BranchServices;
 
 namespace Project_ERP.Controllers
@@ -21,7 +23,8 @@ namespace Project_ERP.Controllers
         public async Task<IActionResult> GetAll()
         {
             var branch = await branchService.GetAllAsync();
-            if (branch == null) return NotFound("No branches found.");
+            if (branch == null || !branch.Any())
+                return NotFound();
             return Ok(branch);
         }
 
@@ -39,7 +42,16 @@ namespace Project_ERP.Controllers
             return Ok(brnach);
         }
 
-
+        [HttpGet("ByName")]
+        public async Task<IActionResult> GetByName(string name)
+        {
+            var branch = await branchService.GetByNameAsync(name);
+            if (branch == null)
+            {
+                return NotFound($"Branch with name {name} not found.");
+            }
+            return Ok(branch);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Add(CreateBranchDto createBranchDto)
@@ -47,7 +59,7 @@ namespace Project_ERP.Controllers
             var account = await branchService.AddAsync(createBranchDto);
             if (account == null)
             {
-                return BadRequest("Invalid branch data.");
+                return BadRequest(new ApiResponse<string>(new List<string> { "Invalid branch data." }));
             }
             return CreatedAtAction(nameof(GetById), new { id = account.BranchID }, account);
         }

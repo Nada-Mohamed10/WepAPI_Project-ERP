@@ -37,6 +37,17 @@ namespace Project_ERP.Controllers
             return Ok(city);
         }
 
+        [HttpGet("ByName")]
+        public async Task<IActionResult> GetByName(string name)
+        {
+            var city = await cityService.GetByNameAsync(name);
+            if (city == null)
+            {
+                return NotFound($"City with name {name} not found.");
+            }
+            return Ok(city);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(CreateCityDto createCityDto)
         {

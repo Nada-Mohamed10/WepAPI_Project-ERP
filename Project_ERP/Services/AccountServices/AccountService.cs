@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Project_ERP.DTOs.Account;
 using Project_ERP.Models;
 using Project_ERP.UnitOfWorks;
@@ -35,14 +36,20 @@ namespace Project_ERP.Services.AccountServices
 
         public async Task<IEnumerable<ReadAccountDto>> GetAllAsync()
         {
-            var accounts = await unit.AccountRepositry.GetAll();
+            var accounts = await unit.AccountRepositry.GetAllWithBranch().ToListAsync();
             return map.Map<IEnumerable<ReadAccountDto>>(accounts);
            
         }
 
         public async Task<ReadAccountDto> GetByIdAsync(int id)
         {
-           var account = await unit.AccountRepositry.GetByIdAsync(id);
+           var account = await unit.AccountRepositry.GetByIdWithBranchAsync(id);
+            if (account == null) return null;
+            return map.Map<ReadAccountDto>(account);
+        }
+        public async Task<ReadAccountDto> GetByNameAsync(string name)
+        {
+            var account = await unit.AccountRepositry.GetByNameAsync(name);
             if (account == null) return null;
             return map.Map<ReadAccountDto>(account);
         }

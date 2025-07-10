@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Project_ERP.DTOs.City;
 using Project_ERP.Models;
 using Project_ERP.UnitOfWorks;
@@ -35,14 +36,21 @@ namespace Project_ERP.Services.CityServices
 
         public async Task<IEnumerable<ReadCityDto>> GetAllAsync()
         {
-            var cities = await unit.CityRepositry.GetAll();
+            var cities = await unit.CityRepositry.GetAllWithBranch().ToListAsync();
             if (cities == null) return null;
             return map.Map<IEnumerable<ReadCityDto>>(cities);
         }
 
         public  async Task<ReadCityDto> GetByIdAsync(int id)
         {
-            var city = await unit.CityRepositry.GetByIdAsync(id);
+            var city = await unit.CityRepositry.GetByIdWithBranchAsync(id); 
+            if (city == null) return null;
+            return map.Map<ReadCityDto>(city);
+        }
+
+        public async Task<ReadCityDto> GetByNameAsync(string name)
+        {
+            var city = await unit.CityRepositry.GetByNameAsync(name);
             if (city == null) return null;
             return map.Map<ReadCityDto>(city);
         }

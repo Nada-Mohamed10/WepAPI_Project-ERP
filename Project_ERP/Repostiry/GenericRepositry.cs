@@ -4,7 +4,7 @@ using Project_ERP.Models;
 
 namespace Project_ERP.Repostiry
 {
-    public class GenericRepositry<Tentity> where  Tentity : class
+    public class GenericRepositry<Tentity> : IGenericRepositry<Tentity> where  Tentity : class
     {
        public TaskContext db;
         public GenericRepositry(TaskContext db)
@@ -22,6 +22,11 @@ namespace Project_ERP.Repostiry
             return await db.Set<Tentity>().FindAsync(id);
         }
 
+        public async Task<Tentity> GetByNameAsync(string name)
+        {
+            return await db.Set<Tentity>().FindAsync(name);
+        }
+
         public async Task AddAsync(Tentity tentity)
         {
           await  db.Set<Tentity>().AddAsync(tentity);
@@ -35,9 +40,7 @@ namespace Project_ERP.Repostiry
         {
             db.Set<Tentity>().Remove(tentity);
         }
-       
 
-
-
+        
     }
 }

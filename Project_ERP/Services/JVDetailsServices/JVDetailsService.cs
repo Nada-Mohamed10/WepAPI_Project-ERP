@@ -3,6 +3,8 @@ using Project_ERP.DTOs.JVDetails;
 using Project_ERP.Models;
 using Project_ERP.Services.JVDetailsServices;
 using Project_ERP.UnitOfWorks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace Project_ERP.Services.JVDetails
 {
@@ -18,10 +20,9 @@ namespace Project_ERP.Services.JVDetails
         public async Task<ReadJVDetailsDto> AddAsync(CreateJVDetailsDto jvDetailsDto)
         {
             var jvDetails = map.Map<JVDetail>(jvDetailsDto);
-            await unit.JVDetailsRepositry.AddAsync(jvDetails);
+            await unit.JVDetailsRepositry.AddAsync(jvDetails); 
             await unit.CompleteAsync();
             return map.Map<ReadJVDetailsDto>(jvDetails);
-
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -36,7 +37,9 @@ namespace Project_ERP.Services.JVDetails
 
         public async Task<IEnumerable<ReadJVDetailsDto>> GetAllAsync()
         {
-            var jvDetails = await unit.JVDetailsRepositry.GetAll();
+            var jvDetails = await unit.JVDetailsRepositry.GetAllWithAccount().ToListAsync();
+
+
 
             return map.Map<IEnumerable<ReadJVDetailsDto>>(jvDetails);
         }
