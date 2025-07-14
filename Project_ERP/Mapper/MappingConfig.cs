@@ -34,13 +34,24 @@ namespace Project_ERP.Mapper
                 .ReverseMap();
             CreateMap<City,CreateCityDto>().ReverseMap();
             CreateMap<City,UpdateCityDto>().ReverseMap();
-            CreateMap<JV , ReadJVDto>().ReverseMap();
+            CreateMap<JV , ReadJVDto>()
+                .ForMember(dest=>dest.BranchNameAr , opt=>opt.MapFrom(src=>src.Branch.BranchNameAr))
+                .ForMember(dest => dest.BranchNameEn, opt => opt.MapFrom(src => src.Branch.BranchNameEn))
+                .ForMember(dest => dest.JVTypeNameAr, opt => opt.MapFrom(src => src.JVType.JVTypeNameAr))
+                .ForMember(dest => dest.JVTypeNameEn, opt => opt.MapFrom(src => src.JVType.JVTypeNameEn))
+                .ReverseMap();
             CreateMap<JV, CreateJVDto>().ReverseMap(); 
             CreateMap<JV, UpdateJVDto>().ReverseMap();
-            CreateMap<JVType, ReadJVTypeDto>().ReverseMap();
+            CreateMap<JVType, ReadJVTypeDto>()
+                .ForMember(dest => dest.BranchNameAr, opt => opt.MapFrom(src => src.Branch.BranchNameAr))
+                .ForMember(dest => dest.BranchNameEn, opt => opt.MapFrom(src => src.Branch.BranchNameEn))
+                .ReverseMap();
             CreateMap<JVType, CreateJVTypeDto>().ReverseMap();
             CreateMap<JVType, UpdateJVTypeDto>().ReverseMap();
-            CreateMap<SubAccountsType, ReadSubAccountTypeDto>().ReverseMap();
+            CreateMap<SubAccountsType, ReadSubAccountTypeDto>()
+                .ForMember(dest => dest.BranchNameAr, opt => opt.MapFrom(src => src.Branch.BranchNameAr))
+                .ForMember(dest => dest.BranchNameEn, opt => opt.MapFrom(src => src.Branch.BranchNameEn))
+                .ReverseMap();
             CreateMap<SubAccountsType, CreateSubAccountTypeDto>().ReverseMap();
             CreateMap<SubAccountsType, UpdateSubAccountTypeDto>().ReverseMap();
             CreateMap<SubAccount, ReadSubAccountDto>().ReverseMap();

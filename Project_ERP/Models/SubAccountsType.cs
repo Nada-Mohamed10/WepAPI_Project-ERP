@@ -18,6 +18,7 @@ public partial class SubAccountsType
     public string SubAccountTypeNameEn { get; set; }
 
     public int? BranchID { get; set; }
+    public virtual Branch Branch { get; set; }
 
     [Key]
     public int SubAccountTypeID { get; set; }

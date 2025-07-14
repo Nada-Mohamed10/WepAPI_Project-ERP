@@ -7,7 +7,8 @@ namespace Project_ERP.DTOs.JVType
         public int JVTypeID { get; set; }
         public string JVTypeNameAr { get; set; }
         public string JVTypeNameEn { get; set; }
-        public int? BranchID { get; set; }
-        
+        public string? BranchNameEn { get; set; }
+        public string? BranchNameAr { get; set; }
+
     }
 }

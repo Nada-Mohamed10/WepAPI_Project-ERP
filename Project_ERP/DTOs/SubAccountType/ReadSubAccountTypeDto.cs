@@ -7,7 +7,8 @@ namespace Project_ERP.DTOs.SubAccountType
         public int SubAccountTypeID { get; set; }
         public string SubAccountTypeNameAr { get; set; }
         public string SubAccountTypeNameEn { get; set; }
-        public int? BranchID { get; set; }
-       
+        public string? BranchNameEn { get; set; }
+        public string? BranchNameAr { get; set; }
+
     }
 }

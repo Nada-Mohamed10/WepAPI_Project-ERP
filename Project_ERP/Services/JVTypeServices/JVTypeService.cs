@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Project_ERP.DTOs.JVType;
 using Project_ERP.Models;
 using Project_ERP.UnitOfWorks;
@@ -37,15 +38,22 @@ namespace Project_ERP.Services.JVTypeServices
 
         public async Task<IEnumerable<ReadJVTypeDto>> GetAllAsync()
         {
-           var jvTypes = await unit.JVTypeRepositry.GetAll();
-          return map.Map<IEnumerable<ReadJVTypeDto>>(jvTypes);
+           var jvTypes = await unit.JVTypeRepositry.GetAllWithBranch().ToListAsync();
+            return map.Map<IEnumerable<ReadJVTypeDto>>(jvTypes);
         }
 
         public async Task<ReadJVTypeDto> GetByIdAsync(int id)
         {
-            var jvType = await unit.JVTypeRepositry.GetByIdAsync(id);
+            var jvType = await unit.JVTypeRepositry.GetByIdWithBranch(id);
             if (jvType == null) return null;
             return map.Map<ReadJVTypeDto>(jvType);
+        }
+
+        public Task<ReadJVTypeDto> GetByNameAsync(string name)
+        {
+          var jvType = unit.JVTypeRepositry.GetByNameAsync(name);
+            if (jvType == null) return Task.FromResult<ReadJVTypeDto>(null);
+            return Task.FromResult(map.Map<ReadJVTypeDto>(jvType));
         }
 
         public async Task<ReadJVTypeDto> UpdateAsync(int id, UpdateJVTypeDto jvTypeDto)

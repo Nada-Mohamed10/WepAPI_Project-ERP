@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Project_ERP.DTOs.JV;
 using Project_ERP.Models;
 using Project_ERP.UnitOfWorks;
@@ -34,13 +35,13 @@ namespace Project_ERP.Services.JVs
 
         public async Task<IEnumerable<ReadJVDto>> GetAllAsync()
         {
-            var jvs= await unit.JVRepositry.GetAll();
+            var jvs= await unit.JVRepositry.GetAllWithBranchAndJVType().ToListAsync();
             return map.Map<IEnumerable<ReadJVDto>>(jvs);
         }
 
         public async Task<ReadJVDto> GetByIdAsync(int id)
         {
-            var jv= await unit.JVRepositry.GetByIdAsync(id);
+            var jv= await unit.JVRepositry.GetByIdWithBranchAndJVType(id);
             if (jv == null) return null;
             return map.Map<ReadJVDto>(jv);
         }

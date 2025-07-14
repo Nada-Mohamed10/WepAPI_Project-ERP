@@ -4,6 +4,8 @@ using Project_ERP.Repostiry.AccountRepositry;
 using Project_ERP.Repostiry.BranchRepositry;
 using Project_ERP.Repostiry.CityReopsitry;
 using Project_ERP.Repostiry.JVDetailsRepositry;
+using Project_ERP.Repostiry.JVRepositry;
+using Project_ERP.Repostiry.JVTypeRepositry;
 
 namespace Project_ERP.UnitOfWorks
 {
@@ -13,8 +15,8 @@ namespace Project_ERP.UnitOfWorks
         public IAccountRepositry AccountRepositry { get; }
         public IBranchRepositry BranchRepositry { get; }
         public ICityRepositry CityRepositry { get; }
-        public GenericRepositry<JV> JVRepositry { get; }
-        public GenericRepositry<JVType> JVTypeRepositry { get; }
+       public IJVRepositry JVRepositry { get; }
+       public IJVTypeRepositry JVTypeRepositry { get; }
         public GenericRepositry<SubAccountsType> SubAccountTypeRepositry { get; }
         public GenericRepositry<SubAccount> SubAccountRepositry { get; }
 
@@ -29,8 +31,8 @@ namespace Project_ERP.UnitOfWorks
             AccountRepositry = new AccountRepositry(db);    
             BranchRepositry = new BranchRepositry(db);
             CityRepositry = new CityRepositry(db);
-            JVRepositry = new GenericRepositry<JV>(db);
-            JVTypeRepositry = new GenericRepositry<JVType>(db);
+            JVRepositry = new JVRepositry(db);
+            JVTypeRepositry = new JVTypeRepositry(db);
             SubAccountTypeRepositry = new GenericRepositry<SubAccountsType>(db);
             SubAccountRepositry = new GenericRepositry<SubAccount>(db);
             JVDetailsRepositry = new JVDetailsRepository(db);

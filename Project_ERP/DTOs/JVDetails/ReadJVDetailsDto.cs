@@ -6,7 +6,7 @@ namespace Project_ERP.DTOs.JVDetails
     public class ReadJVDetailsDto
     {
         public int JVDetailID { get; set; }
-        public int JVID { get; set; }
+       
         public string AccountNameAr { get; set; }
         public string AccountNameEn{ get; set; }
         public string? SubAccountNameAr { get; set; }
@@ -16,6 +16,8 @@ namespace Project_ERP.DTOs.JVDetails
         public bool IsDocumented { get; set; }
         public string Notes { get; set; }
         public string? BranchName { get; set; }
- 
+
+        public int JVID { get; set; }
+
     }
 }
